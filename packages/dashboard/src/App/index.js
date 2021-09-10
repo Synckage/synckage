@@ -8,18 +8,21 @@ import { ProjectStore } from '../store/projects'
 import Analytics from './components/Analytics'
 import { SidebarItem } from './components/Sidebar'
 import Project from './components/Project'
+import { ScrollBarCSS } from '../constants/scrollbar'
 
 const App = () => {
 	const projects = ProjectStore.useState((s) => s.projects)
 
-	const Fetch = async () => {
+	async function Fetch() {
 		const data = await feathers.service('projects').find()
 		ProjectStore.update((s) => {
 			s.projects = data
 		})
 	}
 
-	useEffect(Fetch, [])
+	useEffect(() => {
+		Fetch()
+	}, [])
 
 	return (
 		<Flex h='100vh'>
@@ -52,7 +55,7 @@ const App = () => {
 				></Box>
 			</Box>
 
-			<Box w='full'>
+			<Box w='full' h='100vh' overflow='auto' css={ScrollBarCSS}>
 				<Switch>
 					<Route path='/:project' component={Project} />
 					<Route component={Analytics} />
