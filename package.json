@@ -8,6 +8,8 @@
 	},
 	"devDependencies": {
 		"concurrently": "^6.2.1",
+		"gulp": "^4.0.2",
+		"gulp-run": "^1.7.1",
 		"lerna": "^4.0.0"
 	}
 }
