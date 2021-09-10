@@ -7,6 +7,9 @@
 		"name": "xencodes",
 		"email": "xencodes@icloud.com"
 	},
+	"bin": {
+		"synckage": "./bin/cli"
+	},
 	"scripts": {
 		"dev": "nodemon bin/cli --start"
 	},
