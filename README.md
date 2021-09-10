@@ -1,7 +1,7 @@
 # Synckage
 > Web based Node.js project manager.
 
-![image](https://user-images.githubusercontent.com/31907722/132869390-19ec8858-c973-4ec3-87c9-e93defce109f.png)
+![Artboard](https://user-images.githubusercontent.com/31907722/132871313-945596ea-658b-4dab-ab66-bdf6e25ec917.png)
 
 
 ## Installation
