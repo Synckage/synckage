@@ -21,7 +21,10 @@ const add = (dir) => {
 		return
 	}
 
-	projects.push(packageData)
+	projects.push({
+		...packageData,
+		__dir: dir,
+	})
 	config.set('projects', projects)
 	console.log(`Project "${packageData.name}" is successfully added`.blue.bold)
 }
