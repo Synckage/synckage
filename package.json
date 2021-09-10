@@ -4,7 +4,8 @@
 	"scripts": {
 		"dev:server": "lerna run dev --scope synckage --stream",
 		"dev:client": "lerna run start --scope dashboard",
-		"dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\""
+		"dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\"",
+		"gulp": "gulp"
 	},
 	"devDependencies": {
 		"concurrently": "^6.2.1",
