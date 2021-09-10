@@ -11,5 +11,8 @@ gulp.task('dist', (cb) => {
 	gulp
 		.src('packages/dashboard/build/**')
 		.pipe(gulp.dest('packages/synckage/src/web/webapp'))
+
+	// copy lastest readme
+	gulp.src('README.md').pipe(gulp.dest('packages/synckage/'))
 	cb()
 })
