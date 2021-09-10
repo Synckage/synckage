@@ -18,12 +18,8 @@ const options = program.opts()
 
 if (options.start) {
 	server()
-}
-
-if (options.remove) {
+} else if (options.remove) {
 	remove(options.remove)
-}
-
-if (options.add) {
+} else if (options.add) {
 	add(process.cwd())
 }
