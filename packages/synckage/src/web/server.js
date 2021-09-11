@@ -1,7 +1,9 @@
+const path = require('path')
 const spawn = require('child_process').spawn
 const Projects = require('./services/projects')
 
-const app = require('express')()
+const express = require('express')
+const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http, {
 	allowEIO3: true,
@@ -11,6 +13,11 @@ const io = require('socket.io')(http, {
 		credentials: true,
 	},
 })
+
+const webappDir = path.join(__dirname, '/webapp')
+
+app.use(express.static(webappDir))
+app.get('/', (req, res) => res.sendFile(webappDir + '/index.html'))
 
 io.on('connection', async (socket) => {
 	// emit all projects on connection
