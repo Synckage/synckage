@@ -17,6 +17,7 @@
 		"colors": "^1.4.0",
 		"commander": "^8.2.0",
 		"configstore": "5.0.0",
+		"express": "^4.17.1",
 		"socket.io": "^4.2.0"
 	},
 	"devDependencies": {
