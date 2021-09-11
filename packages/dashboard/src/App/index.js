@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Box, Flex, Center, Image, Heading } from '@chakra-ui/react'
+import { Box, Flex, Center, Image } from '@chakra-ui/react'
 import { Route, Switch } from 'react-router-dom'
 
-import feathers from '../providers/feathers'
+import socket from '../providers/socket'
 import { ProjectStore } from '../store/projects'
 import Analytics from './components/Analytics'
 import { SidebarItem } from './components/Sidebar'
@@ -14,9 +14,10 @@ const App = () => {
 	const projects = ProjectStore.useState((s) => s.projects)
 
 	async function Fetch() {
-		const data = await feathers.service('projects').find()
-		ProjectStore.update((s) => {
-			s.projects = data
+		socket.on('projects', (data) => {
+			ProjectStore.update((s) => {
+				s.projects = data
+			})
 		})
 	}
 

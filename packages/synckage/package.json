@@ -14,12 +14,10 @@
 		"dev": "nodemon bin/cli --start"
 	},
 	"dependencies": {
-		"@feathersjs/express": "^4.5.11",
-		"@feathersjs/feathers": "^4.5.11",
-		"@feathersjs/socketio": "^4.5.11",
 		"colors": "^1.4.0",
 		"commander": "^8.2.0",
-		"configstore": "5.0.0"
+		"configstore": "5.0.0",
+		"socket.io": "^4.2.0"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.12"

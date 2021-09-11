@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const PORT = 9999
 const { version } = require('../package.json')
 const { program } = require('commander')
 
@@ -17,7 +18,9 @@ program.parse(process.argv)
 const options = program.opts()
 
 if (options.start) {
-	server()
+	server.listen(PORT, () =>
+		console.log(`server listening on ${PORT}`.green.bold)
+	)
 } else if (options.remove) {
 	remove(options.remove)
 } else if (options.add) {
