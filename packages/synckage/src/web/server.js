@@ -25,14 +25,14 @@ io.on('connection', async (socket) => {
 			return
 		}
 
-		let child = spawn('npm', ['run', script], { cwd: project.__dir })
-		child.stdout.setEncoding('utf8')
-		child.stdout.on('data', (data) => {
-			let logkey = `log-${name}`
-			console.log('logkey', logkey)
-
-			socket.emit(logkey, data)
-		})
+		if (checked) {
+			let child = spawn('npm', ['run', script], { cwd: project.__dir })
+			child.stdout.setEncoding('utf8')
+			child.stdout.on('data', (data) => {
+				let logkey = `log-${name}`
+				socket.emit(logkey, data)
+			})
+		}
 	})
 
 	socket.on('disconnect', function () {
