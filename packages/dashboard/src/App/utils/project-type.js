@@ -1,4 +1,5 @@
-import { SiNextDotJs, SiReact } from 'react-icons/si'
+import { SiMongodb, SiNextDotJs, SiReact } from 'react-icons/si'
+import { FiFeather } from 'react-icons/fi'
 const projectType = (dependencies) => {
 	let final = []
 
@@ -12,6 +13,16 @@ const projectType = (dependencies) => {
 			type: 'Next',
 			icon: <SiNextDotJs />,
 			deps: ['next'],
+		},
+		{
+			type: 'Feathers',
+			icon: <FiFeather />,
+			deps: ['@feathersjs/feathers'],
+		},
+		{
+			type: 'MongoDB',
+			icon: <SiMongodb />,
+			deps: ['mongoose'],
 		},
 	]
 
