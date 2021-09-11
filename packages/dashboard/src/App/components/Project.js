@@ -129,15 +129,19 @@ const Project = ({ location }) => {
 				</Flex>
 			</Stack>
 			<Stack p={4} spacing={6}>
+				{/* Stats */}
 				<Stats />
 				<SimpleGrid columns={10} spacing={4}>
 					<GridItem colSpan={{ base: 10, md: 4 }}>
+						{/* Scripts */}
 						<Scripts />
 					</GridItem>
 					<GridItem colSpan={{ base: 10, md: 6 }}>
+						{/* Dependencies */}
 						<Dependencies />
 					</GridItem>
 				</SimpleGrid>
+				{/* Logs */}
 				<Logs />
 			</Stack>
 		</Box>
