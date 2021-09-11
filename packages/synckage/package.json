@@ -1,7 +1,7 @@
 {
 	"name": "synckage",
 	"description": "Manage your Node.js projects via web dashboard",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"license": "MIT",
 	"author": {
 		"name": "xencodes",
