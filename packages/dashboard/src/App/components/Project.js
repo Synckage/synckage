@@ -78,8 +78,8 @@ const Project = ({ location }) => {
 			<Box borderWidth='1px' rounded='lg' p={2}>
 				<Heading fontWeight='normal'>Scripts</Heading>
 				<Stack mt={4} p={2} h='64' overflow='auto' css={ScrollBarCSS}>
-					{allScripts.map((script) => (
-						<Box>
+					{allScripts.map((script, idx) => (
+						<Box key={idx}>
 							<Flex>
 								<Box>
 									<Text fontWeight='semibold'>{script}</Text>
@@ -100,8 +100,8 @@ const Project = ({ location }) => {
 			<Box borderWidth='1px' rounded='lg' p={2}>
 				<Heading fontWeight='normal'>Dependencies</Heading>
 				<Stack mt={4} p={2} h='64' overflow='auto' css={ScrollBarCSS}>
-					{allDeps.map((dep) => (
-						<Box>
+					{allDeps.map((dep, idx) => (
+						<Box key={idx}>
 							<Flex>
 								<Box>
 									<Text fontWeight='semibold'>{dep}</Text>
@@ -127,8 +127,10 @@ const Project = ({ location }) => {
 					</Stack>
 					<Spacer />
 					<HStack>
-						{projectTypes.map((type) => (
-							<Box fontSize='4xl'>{type.icon}</Box>
+						{projectTypes.map((type, idx) => (
+							<Box fontSize='4xl' key={idx}>
+								{type.icon}
+							</Box>
 						))}
 					</HStack>
 				</Flex>
