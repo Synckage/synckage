@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react'
+import ReactAnsi from 'react-ansi'
 import {
 	Box,
 	Code,
-	Divider,
 	Flex,
 	GridItem,
 	Heading,
@@ -11,21 +12,56 @@ import {
 	Stack,
 	Text,
 } from '@chakra-ui/layout'
-import { Stat, StatLabel, StatNumber, Button } from '@chakra-ui/react'
+import { Stat, StatLabel, StatNumber, Button, Switch } from '@chakra-ui/react'
 import { ScrollBarCSS } from '../../constants/scrollbar'
+import socket from '../../providers/socket'
 import { projectType } from '../utils/project-type'
+import { ProjectStore } from '../../store/projects'
 
 const Project = ({ location }) => {
 	const { state: project } = location
 
-	if (!project) {
-		window.location.href = '/'
-		return
-	}
-
 	const { name, description, dependencies, license, scripts } = project
 	const allDeps = Object.keys(dependencies)
 	const projectTypes = projectType(allDeps)
+	const logs = ProjectStore.useState((s) => s.logs[name]) || ''
+
+	const RunScript = async (script, checked) => {
+		socket.emit('run-script', {
+			script,
+			name,
+			checked,
+		})
+	}
+
+	const logHandler = () => {
+		let logkey = `log-${name}`
+		let _logs = ''
+
+		socket.on(logkey, (log) => {
+			_logs += log
+			ProjectStore.update((s) => {
+				s.logs[name] = _logs
+			})
+		})
+	}
+
+	useEffect(() => {
+		logHandler()
+	}, [])
+
+	// const Controls = () => {
+	// 	return (
+	// 		<Flex>
+	// 			<Box shadow='md' rounded='lg' p={4}>
+	// 				<Heading fontWeight='normal'>Controls</Heading>
+	// 				<Stack mt={4}>
+	// 					<Button colorScheme='brand'>Start</Button>
+	// 				</Stack>
+	// 			</Box>
+	// 		</Flex>
+	// 	)
+	// }
 
 	const Stats = () => {
 		const depCount = allDeps.length
@@ -65,8 +101,13 @@ const Project = ({ location }) => {
 		return (
 			<Stack borderWidth='1px' rounded='lg' p={2}>
 				<Heading fontWeight='normal'>Logs</Heading>
-				<Box h='300px' overflow='auto'>
-					<p>Nostrud ex irure occaecat id.</p>
+				<Box h='300px'>
+					<ReactAnsi
+						autoScroll={true}
+						bodyStyle={{ maxHeight: 500, overflowY: 'auto' }}
+						style={{ backgroundColor: 'white' }}
+						log={logs || ''}
+					/>
 				</Box>
 			</Stack>
 		)
@@ -86,7 +127,10 @@ const Project = ({ location }) => {
 									<Code>{scripts[script]}</Code>
 								</Box>
 								<Spacer />
-								<Button size='sm'>{script}</Button>
+								<Switch
+									colorScheme='brand'
+									onChange={(e) => RunScript(script, e.target.checked)}
+								/>
 							</Flex>
 						</Box>
 					))}
@@ -136,6 +180,9 @@ const Project = ({ location }) => {
 				</Flex>
 			</Stack>
 			<Stack p={4} spacing={6}>
+				{/* Controls */}
+				{/* <Controls /> */}
+
 				{/* Stats */}
 				<Stats />
 				<SimpleGrid columns={10} spacing={4}>

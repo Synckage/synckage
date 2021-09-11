@@ -1,3 +1,4 @@
+const spawn = require('child_process').spawn
 const Projects = require('./services/projects')
 
 const app = require('express')()
@@ -12,8 +13,28 @@ const io = require('socket.io')(http, {
 })
 
 io.on('connection', async (socket) => {
-	console.log('socket', socket.id)
+	// emit all projects on connection
 	socket.emit('projects', await Projects.find())
+
+	socket.on('run-script', async (data) => {
+		const { script, name, checked } = data
+		const projects = await Projects.find()
+		const project = projects.find((p) => p.name == name)
+		if (!project) {
+			socket.emit('run-script', { error: 'Project cannot be found' })
+			return
+		}
+
+		let child = spawn('npm', ['run', script], { cwd: project.__dir })
+		child.stdout.setEncoding('utf8')
+		child.stdout.on('data', (data) => {
+			let logkey = `log-${name}`
+			console.log('logkey', logkey)
+
+			socket.emit(logkey, data)
+		})
+	})
+
 	socket.on('disconnect', function () {
 		console.log('A user disconnected')
 	})

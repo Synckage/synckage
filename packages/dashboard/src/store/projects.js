@@ -1,3 +1,7 @@
 import { Store } from 'pullstate'
 
-export const ProjectStore = new Store({ projects: [] })
+export const ProjectStore = new Store({
+	projects: [],
+	logs: {},
+	activeScripts: {},
+})
