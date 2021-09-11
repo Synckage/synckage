@@ -18,6 +18,11 @@ import { projectType } from '../utils/project-type'
 const Project = ({ location }) => {
 	const { state: project } = location
 
+	if (!project) {
+		window.location.href = '/'
+		return
+	}
+
 	const { name, description, dependencies, license, scripts } = project
 	const allDeps = Object.keys(dependencies)
 	const projectTypes = projectType(allDeps)
